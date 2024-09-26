@@ -6,6 +6,7 @@ CellMart é uma plataforma de e-commerce especializada em smartphones, oferecend
 ## Desenvolvedor
 - **Nome:** B3niwH
 - **Email:** beniw@alu.ufc.br
+- **Linkedin:** www.linkedin.com/in/beniwendel-honori-3532341b5
 
 ## Tecnologias Utilizadas
 
