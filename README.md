@@ -1,11 +1,5 @@
 
-<h1 align="center">
-  <br>
-  <a href="https://github.com/entediado97/cellmar"><img src="https://i.ibb.co/1sG6J48/Site-Projeto-SMD.gif" alt="Site-Projeto-SMD" border="0">
-  <br>
-  CellMart - Loja Online de Smartphones
-  <br>
-</h1>
+# CellMart - Loja Online de Smartphones
 
 ## Descrição
 CellMart é uma plataforma de e-commerce especializada em smartphones, oferecendo uma experiência de compra intuitiva para usuários e ferramentas de gerenciamento para administradores.
