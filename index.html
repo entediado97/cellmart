@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CellMart - Sua Loja de Celulares Online</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="https://cdn-icons-png.freepik.com/512/5630/5630966.png" alt="CellMart Logo" width="30" height="30" class="d-inline-block align-top me-2">
+                CellMart
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#promocoes">Promoções</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#produtos">Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contato">Contato</a>
+                    </li>
+                    <li class="nav-item" id="meus-pedidos-item" style="display: none;">
+                        <a class="nav-link" href="#" id="historico-btn">Meus Pedidos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="login-btn">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="carrinho-btn">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="carrinho-contador" class="badge bg-danger">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="loading" class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-dark bg-opacity-75" style="display: none; z-index: 9999;">
+        <div class="spinner-border text-light" role="status">
+            <span class="visually-hidden">Carregando...</span>
+        </div>
+    </div>
+
+    <div id="alert-placeholder" class="position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 1050;"></div>
+
+    <main class="container mt-4">
+        <section id="promocoes" class="mb-5">
+            <h2 class="text-center mb-4">Ofertas Imperdíveis</h2>
+            <div id="carouselPromocoes" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner rounded">
+                    <div class="carousel-item active">
+                        <img src="https://alliedrecommerce.vtexassets.com/assets/vtex.file-manager-graphql/images/e9a8648d-0882-4d70-a8de-2e662d1fb022___2e549e4c273510f7ed9017a16b063197.png" class="d-block w-100" alt="Promoção 1">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>iPhone 13 Pro com 20% de desconto</h5>
+                            <p>Aproveite esta oferta por tempo limitado!</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://alliedrecommerce.vtexassets.com/assets/vtex.file-manager-graphql/images/c4d14293-5e5a-48f6-a91a-2e0d935c091e___74b875accdf78220196db51994d138cd.png" class="d-block w-100" alt="Promoção 2">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Samsung Galaxy S21 Ultra com frete grátis</h5>
+                            <p>Compre agora e receba em casa sem custos adicionais!</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://alliedrecommerce.vtexassets.com/assets/vtex.file-manager-graphql/images/46e002d8-86d6-435e-832f-e756264621ec___49f4a3890c75cf0e9498ea7d061bc68f.png" class="d-block w-100" alt="Promoção 3">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Google Pixel 6 com 30% de desconto</h5>
+                            <p>A melhor câmera do mercado com um preço incrível!</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselPromocoes" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselPromocoes" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Próximo</span>
+                </button>
+            </div>
+        </section>
+
+        <section id="produtos" class="mb-5">
+            <h2 class="text-center mb-4">Nossos Smartphones</h2>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="input-group" style="max-width: 300px;">
+                    <input type="text" id="busca-input" class="form-control" placeholder="Buscar produtos" aria-label="Buscar produtos">
+                    <button class="btn btn-outline-secondary" type="button" id="produto-busca-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <select id="ordenar-produtos" class="form-select" style="max-width: 200px;">
+                    <option value="">Ordenar por</option>
+                    <option value="preco_asc">Preço: Menor para Maior</option>
+                    <option value="preco_desc">Preço: Maior para Menor</option>
+                    <option value="nome_asc">Nome: A-Z</option>
+                    <option value="nome_desc">Nome: Z-A</option>
+                </select>
+            </div>
+            <div id="lista-produtos" class="row g-4"></div>
+            <nav aria-label="Paginação de produtos" class="mt-4">
+                <ul id="paginacao" class="pagination justify-content-center"></ul>
+            </nav>
+        </section>
+
+        <section id="contato" class="mb-5">
+            <h2 class="text-center mb-4">Fale Conosco</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <form id="contato-form">
+                        <div class="mb-3">
+                            <label for="contato-nome" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="contato-nome" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contato-email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="contato-email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contato-mensagem" class="form-label">Mensagem</label>
+                            <textarea class="form-control" id="contato-mensagem" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5>CellMart</h5>
+                    <p>Sua loja de celulares online</p>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5>Links Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#promocoes" class="text-light">Promoções</a></li>
+                        <li><a href="#produtos" class="text-light">Produtos</a></li>
+                        <li><a href="#contato" class="text-light">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contato</h5>
+                    <p>Email: contato@cellmart.com</p>
+                    <p>Telefone: (11) 1234-5678</p>
+                    <div class="mt-2">
+                        <a href="#" class="text-light me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-light me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-light me-2"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3">
+            <div class="text-center">
+                <p>&copy; 2024 CellMart - Todos os direitos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Autenticação -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" id="authModalLabel">Acesso</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" id="authTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="true">Login</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab" aria-controls="register" aria-selected="false">Cadastro</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-3" id="authTabContent">
+                        <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                            <form id="login-form">
+                                <div class="mb-3">
+                                    <label for="login-email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="login-email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="login-senha" class="form-label">Senha</label>
+                                    <input type="password" class="form-control" id="login-senha" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Entrar</button>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                            <form id="register-form">
+                                <div class="mb-3">
+                                    <label for="register-nome" class="form-label">Nome</label>
+                                    <input type="text" class="form-control" id="register-nome" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="register-email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="register-email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="register-senha" class="form-label">Senha</label>
+                                    <input type="password" class="form-control" id="register-senha" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="register-telefone" class="form-label">Telefone</label>
+                                    <input type="tel" class="form-control" id="register-telefone" required>
+                                </div>
+                                <div class="mb-3">
+                                <label for="register-cpf" class="form-label">CPF</label>
+                                <input type="text" class="form-control" id="register-cpf" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal do Carrinho -->
+<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content bg-dark text-light">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="cartModalLabel">Seu Carrinho</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="cart-items"></div>
+                <div class="text-end mt-3">
+                    <h5>Total: R$ <span id="cart-total">0.00</span></h5>
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continuar Comprando</button>
+                <button type="button" class="btn btn-primary" id="finalizar-compra-btn">Finalizar Compra</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Pagamento -->
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-light">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="paymentModalLabel">Finalizar Compra</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="payment-form">
+                    <div class="mb-3">
+                        <label for="payment-method" class="form-label">Selecione o método de pagamento</label>
+                        <select class="form-select" id="payment-method" required>
+                            <option value="">Escolha uma opção</option>
+                            <option value="credit-card">Cartão de Crédito</option>
+                            <option value="debit-card">Cartão de Débito</option>
+                            <option value="pix">PIX</option>
+                        </select>
+                    </div>
+                    <div id="credit-card-fields" style="display: none;">
+                        <div class="mb-3">
+                            <label for="card-number" class="form-label">Número do Cartão</label>
+                            <input type="text" class="form-control" id="card-number" placeholder="1234 5678 9012 3456">
+                        </div>
+                        <div class="mb-3">
+                            <label for="card-name" class="form-label">Nome no Cartão</label>
+                            <input type="text" class="form-control" id="card-name" placeholder="Nome Completo">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="card-expiry" class="form-label">Data de Expiração</label>
+                                <input type="text" class="form-control" id="card-expiry" placeholder="MM/AA">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="card-cvv" class="form-label">CVV</label>
+                                <input type="text" class="form-control" id="card-cvv" placeholder="123">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="pix-fields" style="display: none;">
+                        <div class="mb-3">
+                            <p>Escaneie o QR Code abaixo para pagar com PIX:</p>
+                            <img src="https://via.placeholder.com/200" alt="QR Code PIX" class="img-fluid">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Confirmar Pagamento</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Histórico de Pedidos -->
+<div class="modal fade" id="historicoModal" tabindex="-1" aria-labelledby="historicoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content bg-dark text-light">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="historicoModalLabel">Histórico de Pedidos</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="historico-pedidos"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Teste expandir imagem front -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content bg-dark">
+      <div class="modal-body">
+        <img id="modalImage" src="" class="modal-product-image" alt="Produto Ampliado">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+<script src="orders.js"></script>
+<script src="payment.js"></script>
+</body>
+</html>
+</antArtifact>

@@ -1,0 +1,363 @@
+/* Meu arquivo de estilos para o CellMart */
+
+:root {
+    --cor-primaria: #5A20CB;
+    --cor-secundaria: #FF6F61;
+    --cor-fundo: #1A1A1D;
+    --cor-texto-clara: #F5F5F5;
+    --cor-texto-escura: #333;
+    --cor-destaque: #4CAF50;
+    --cor-perigo: #DC3545;
+    --fonte-principal: 'Roboto', sans-serif;
+    --velocidade-transicao: 0.3s;
+}
+
+body {
+    font-family: var(--fonte-principal);
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto-clara);
+    line-height: 1.6;
+}
+
+/* Estilos da Barra de Navegação */
+.navbar {
+    background-color: rgba(26, 26, 29, 0.9) !important;
+    backdrop-filter: blur(10px);
+    transition: background-color var(--velocidade-transicao) ease;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: var(--cor-texto-clara) !important;
+}
+
+.nav-link {
+    color: #b0b0b0 !important;
+    transition: color var(--velocidade-transicao) ease;
+}
+
+.nav-link:hover, .nav-link:focus {
+    color: var(--cor-texto-clara) !important;
+}
+
+.navbar-toggler {
+    border-color: rgba(255,255,255,0.1);
+}
+
+/* Estilos dos Botões */
+.btn-primary {
+    background-color: var(--cor-primaria);
+    border-color: var(--cor-primaria);
+    transition: all var(--velocidade-transicao) ease;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: var(--cor-secundaria);
+    border-color: var(--cor-secundaria);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    transition: all var(--velocidade-transicao) ease;
+}
+
+.btn-secondary:hover, .btn-secondary:focus {
+    background-color: #5a6268;
+    border-color: #545b62;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Estilos dos Formulários */
+.form-control {
+    background-color: #2c2c2c;
+    border-color: #444;
+    color: var(--cor-texto-clara);
+    transition: all var(--velocidade-transicao) ease;
+}
+
+.form-control:focus {
+    background-color: #3c3c3c;
+    border-color: var(--cor-secundaria);
+    color: #ffffff;
+    box-shadow: 0 0 0 0.2rem rgba(255, 111, 97, 0.25);
+}
+
+/* Estilos dos Cards */
+.card {
+    background-color: #2c2c2c;
+    border: none;
+    transition: all var(--velocidade-transicao) ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+    transition: transform var(--velocidade-transicao) ease;
+    cursor: pointer;
+}
+
+.card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+/* Estilos dos Modais */
+.modal-content {
+    background-color: #2c2c2c;
+    border: none;
+}
+
+.modal-header, .modal-footer {
+    border-color: #444;
+}
+
+/* Estilos do Carrossel */
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+/* Estilos da Paginação */
+.pagination .page-link {
+    background-color: #2c2c2c;
+    border-color: #444;
+    color: var(--cor-texto-clara);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--cor-primaria);
+    border-color: var(--cor-primaria);
+}
+
+/* Minha Barra de Rolagem Personalizada */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1d;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Minhas Classes Utilitárias */
+.text-primary {
+    color: var(--cor-primaria) !important;
+}
+
+.text-secondary {
+    color: var(--cor-secundaria) !important;
+}
+
+.bg-dark {
+    background-color: var(--cor-fundo) !important;
+}
+
+/* Minhas Classes de Animação */
+.fade-in {
+    animation: fadeIn var(--velocidade-transicao) ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Meus Estilos Responsivos */
+@media (max-width: 768px) {
+    .card-img-top {
+        height: 150px;
+    }
+
+    .carousel-caption {
+        padding: 10px;
+    }
+
+    h1, h2 {
+        font-size: 1.8rem;
+    }
+}
+
+/* Estilos do Carrinho */
+.cart-item {
+    background-color: #3c3c3c;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.remover-do-carrinho {
+    padding: 2px 5px;
+    font-size: 0.8rem;
+}
+
+/* Estilos do Histórico */
+.pedido-item {
+    background-color: #3c3c3c;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+/* Estilos do Rodapé */
+footer {
+    background-color: #0f0f11;
+    padding: 40px 0;
+}
+
+footer h5 {
+    color: var(--cor-secundaria);
+    margin-bottom: 20px;
+}
+
+footer a {
+    color: #b0b0b0;
+    transition: color var(--velocidade-transicao) ease;
+}
+
+footer a:hover {
+    color: var(--cor-texto-clara);
+    text-decoration: none;
+}
+
+/* Estilos dos Alertas */
+.alert {
+    border-radius: 5px;
+    border: none;
+}
+
+.alert-success {
+    background-color: rgba(76, 175, 80, 0.2);
+    color: #4CAF50;
+}
+
+.alert-danger {
+    background-color: rgba(220, 53, 69, 0.2);
+    color: #DC3545;
+}
+
+.alert-warning {
+    background-color: rgba(255, 193, 7, 0.2);
+    color: #FFC107;
+}
+
+/* Meu Spinner de Carregamento */
+#loading {
+    background-color: rgba(26, 26, 29, 0.8);
+    z-index: 9999;
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Melhorias para acessibilidade */
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* Estilos de foco para melhor navegação por teclado */
+a:focus, button:focus, input:focus, select:focus, textarea:focus {
+    outline: 2px solid var(--cor-secundaria);
+    outline-offset: 2px;
+}
+
+/* Efeitos adicionais de hover */
+.nav-link:hover, .btn:hover, .card:hover {
+    transition: all var(--velocidade-transicao) ease;
+    transform: translateY(-2px);
+}
+
+/* Melhor contraste para leitura */
+.text-muted {
+    color: #b0b0b0 !important;
+}
+
+/* Estilo para o ícone de usuário logado */
+#login-btn.logged-in .fa-user {
+    color: var(--cor-destaque);
+}
+
+/* Ajustes para o spinner de carregamento */
+#loading {
+    display: none !important;
+}
+
+#loading.show {
+    display: flex !important;
+}
+
+/* Estilos para o select de ordenação */
+select.form-select {
+    background-color: #2c2c2c;
+    color: var(--cor-texto-clara);
+    border-color: #444;
+}
+
+select.form-select:focus {
+    background-color: #3c3c3c;
+    color: var(--cor-texto-clara);
+    border-color: var(--cor-secundaria);
+    box-shadow: 0 0 0 0.2rem rgba(255, 111, 97, 0.25);
+}
+
+/* Estilos para o modal de imagem expandida */
+.modal-product-image {
+    width: 100%;
+    height: auto;
+    max-height: 80vh;
+    object-fit: contain;
+}
+
+#imageModal .modal-dialog {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 1rem);
+}
+
+#imageModal .modal-content {
+    background-color: transparent;
+    border: none;
+}
+
+#imageModal .modal-body {
+    padding: 0;
+}

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CellMart Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #5a20cb;
+            --secondary-color: #7c3aed;
+            --surface-color: #1f1f1f;
+            --text-color: #ffffff;
+        }
+        body {
+            background-color: #121212;
+            color: var(--text-color);
+        }
+        .navbar, .sidebar {
+            background-color: var(--surface-color) !important;
+        }
+        .nav-link {
+            color: var(--text-color) !important;
+        }
+        .nav-link:hover, .nav-link.active {
+            background-color: var(--primary-color);
+            color: white !important;
+        }
+        .form-control, .form-select {
+            background-color: var(--surface-color);
+            border-color: #444;
+            color: var(--text-color);
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: #3c3c3c;
+            border-color: var(--primary-color);
+            color: var(--text-color);
+            box-shadow: 0 0 0 0.25rem rgba(90, 32, 203, 0.25);
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        .btn-outline-secondary {
+            color: var(--text-color);
+            border-color: #444;
+        }
+        .btn-outline-secondary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+        .card {
+            background-color: var(--surface-color);
+            border-color: #444;
+        }
+        .modal-content {
+            background-color: var(--surface-color);
+            color: var(--text-color);
+        }
+        .modal-header, .modal-footer {
+            border-color: #444;
+        }
+        .pagination .page-link {
+            background-color: var(--surface-color);
+            border-color: #444;
+            color: var(--text-color);
+        }
+        .pagination .page-item.active .page-link {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .table {
+            color: var(--text-color);
+        }
+        .btn-close {
+            filter: invert(1) grayscale(100%) brightness(200%);
+        }
+        #loading {
+            display: none !important;
+        }
+        #loading.show {
+            display: flex !important;
+        }
+        #logout-btn {
+            background-color: green;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        #logout-btn:hover {
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="https://cdn-icons-png.freepik.com/512/5630/5630966.png" alt="CellMart Logo" class="d-inline-block align-top me-2" width="30" height="30">
+                CellMart Admin
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#produtos">Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#usuarios">Usuários</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#mensagens">Mensagens</a>
+                    </li>
+                </ul>
+                <button id="logout-btn" class="btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div id="alert-placeholder" class="mb-4"></div>
+
+        <div id="produtos" class="section mb-5">
+            <h2 class="mb-4">Gerenciar Produtos</h2>
+            <div class="d-flex justify-content-between mb-3">
+                <div class="input-group" style="max-width: 300px;">
+                    <input type="text" id="produto-busca" class="form-control" placeholder="Buscar produto">
+                    <button class="btn btn-outline-secondary" type="button" id="produto-busca-btn">Buscar</button>
+                </div>
+                <select id="ordenar-produtos" class="form-select" style="width: auto;">
+                    <option value="nome">Nome (A-Z)</option>
+                    <option value="-nome">Nome (Z-A)</option>
+                    <option value="preco">Preço (Menor-Maior)</option>
+                    <option value="-preco">Preço (Maior-Menor)</option>
+                </select>
+            </div>
+            <button id="adicionar-produto-btn" class="btn btn-primary mb-3">Adicionar Novo Produto</button>
+            <div id="lista-produtos" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"></div>
+            <nav aria-label="Paginação de produtos">
+                <ul id="paginacao-produtos" class="pagination justify-content-center mt-4"></ul>
+            </nav>
+        </div>
+
+        <div id="usuarios" class="section mb-5">
+            <h2 class="mb-4">Gerenciar Usuários</h2>
+            <div class="d-flex justify-content-between mb-3">
+                <div class="input-group" style="max-width: 300px;">
+                    <input type="text" id="usuario-busca" class="form-control" placeholder="Buscar usuário">
+                    <button class="btn btn-outline-secondary" type="button" id="usuario-busca-btn">Buscar</button>
+                </div>
+                <select id="ordenar-usuarios" class="form-select" style="width: auto;">
+                    <option value="nome">Nome (A-Z)</option>
+                    <option value="-nome">Nome (Z-A)</option>
+                    <option value="email">Email (A-Z)</option>
+                    <option value="-email">Email (Z-A)</option>
+                </select>
+            </div>
+            <div id="lista-usuarios" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"></div>
+            <nav aria-label="Paginação de usuários">
+                <ul id="paginacao-usuarios" class="pagination justify-content-center mt-4"></ul>
+            </nav>
+        </div>
+
+        <div id="mensagens" class="section mb-5">
+            <h2 class="mb-4">Mensagens de Contato</h2>
+            <div class="d-flex justify-content-end mb-3">
+                <select id="ordenar-mensagens" class="form-select" style="width: auto;">
+                    <option value="-dataEnvio">Data (Mais recente)</option>
+                    <option value="dataEnvio">Data (Mais antiga)</option>
+                </select>
+            </div>
+            <div id="mensagens-contato"></div>
+            <nav aria-label="Paginação de mensagens">
+                <ul id="paginacao-mensagens" class="pagination justify-content-center mt-4"></ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Modal de Produto -->
+    <div class="modal fade" id="produtoModal" tabindex="-1" aria-labelledby="produtoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="produtoModalLabel">Adicionar/Editar Produto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="produto-form">
+                        <input type="hidden" id="produto-id">
+                        <div class="mb-3">
+                            <label for="produto-nome" class="form-label">Nome do Produto</label>
+                            <input type="text" class="form-control" id="produto-nome" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="produto-preco" class="form-label">Preço</label>
+                            <input type="number" class="form-control" id="produto-preco" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="produto-descricao" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="produto-descricao" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="produto-imagem" class="form-label">URL da Imagem</label>
+                            <input type="url" class="form-control" id="produto-imagem" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Usuário -->
+    <div class="modal fade" id="usuarioModal" tabindex="-1" aria-labelledby="usuarioModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="usuarioModalLabel">Editar Usuário</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="usuario-form">
+                        <input type="hidden" id="usuario-id">
+                        <div class="mb-3">
+                            <label for="usuario-nome" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="usuario-nome" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="usuario-email" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="usuario-email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="usuario-telefone" class="form-label">Telefone</label>
+                            <input type="tel" class="form-control" id="usuario-telefone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="usuario-cpf" class="form-label">CPF</label>
+                            <input type="text" class="form-control" id="usuario-cpf" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="usuario-admin">
+                            <label class="form-check-label" for="usuario-admin">É administrador?</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loading" class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-dark bg-opacity-50" style="display: none; z-index: 9999;">
+        <div class="spinner-border text-light" role="status">
+            <span class="visually-hidden">Carregando...</span>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
